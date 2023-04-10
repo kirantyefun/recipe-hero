@@ -8,6 +8,10 @@ from .models import Recipe, Ingredient, RecipeReview
 from .serializers import RecipeSerializer, RecipeListSerializer, IngredientSerializer, ReviewListSerializer, \
     ReviewSerializer
 from .utils.queryset_helpers import filter_qs_helper
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -32,7 +36,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         recipe_serializer = self.get_serializer(data=request.data)
         recipe_serializer.is_valid(raise_exception=True)
         recipe = recipe_serializer.save(ingredients=ingredients, chef=request.user)
-        return Response(self.get_serializer(instance=recipe).data)
+        return Response(self.get_serializer(instance=recipe).data, status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
         ingredients = request.data.pop('ingredients', [])
@@ -55,13 +59,18 @@ class RecipeViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         try:
             serializer.save(recipe=recipe, user=request.user)
-            return Response({
-                "message": "review posted"
-            }, status=status.HTTP_201_CREATED)
+            return Response(
+                RecipeSerializer(instance=recipe).data, status=status.HTTP_201_CREATED)
         except IntegrityError:
             return Response({
                 "error": "Same user not allowed to post reviews more than once for single recipe."
             }, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=["GET"], detail=False, url_path='my-recipes')
+    def my_recipes(self, request):
+        user: User = request.user
+        serializer = RecipeListSerializer(instance=user.recipes.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class IngredientViewSet(viewsets.ModelViewSet):

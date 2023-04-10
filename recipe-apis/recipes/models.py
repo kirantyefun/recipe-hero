@@ -15,9 +15,10 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
+    about = models.TextField(help_text="Short description about the recipe")
     slug = models.SlugField()
     ingredients = models.ManyToManyField(Ingredient, related_name='recipes')
-    chef = models.ForeignKey(User, on_delete=models.CASCADE)
+    chef = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
     process = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

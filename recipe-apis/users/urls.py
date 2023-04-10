@@ -7,4 +7,5 @@ urlpatterns = [
     path('login/', views.CustomAuthToken.as_view(), name='login'),
     # path('login/', views.UserLogin.as_view(), name='login'),
     path('logout/', views.UserLogout.as_view(), name='logout'),
+    path('me/', views.UserView.as_view(), name='me'),
 ]

@@ -17,7 +17,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ["name", "slug", "process", "ingredients", "chef", "reviews"]
+        fields = ["name", "slug", "process", "ingredients", "chef", "reviews", "about"]
 
     def get_ingredients(self, obj):
         return [ingredient.name for ingredient in obj.ingredients.all()]
@@ -25,6 +25,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class RecipeListSerializer(serializers.ModelSerializer):
     average_rating = serializers.FloatField(read_only=True)
+    chef = serializers.StringRelatedField()
 
     class Meta:
         model = Recipe
