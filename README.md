@@ -1,12 +1,12 @@
-This project provides an API for managing user accounts, recipes and ingredients, built with Django and Django Rest Framework. Users can register, login, and logout using Django token authentication. The API allows users to view, create, update, and delete their own recipes and ingredients, as well as view recipes uploaded by other users. Users can also leave reviews for recipes, which include a rating and a comment.
+[This project provides an API for managing user accounts, recipes and ingredients, built with Django and Django Rest Framework. Users can register, login, and logout using Django token authentication. The API allows users to view, create, update, and delete their own recipes and ingredients, as well as view recipes uploaded by other users. Users can also leave reviews for recipes, which include a rating and a comment.
 
 # Installation
 
 1.  Clone this repository:
 
 
-`git clone https://github.com/yourusername/recipe-book-api.git
-cd recipe-book-api` 
+- `git clone https://github.com/kirantyefun/recipe-hero.git`
+- `cd recipe-hero/recipe-apis` 
 
 ## Backend
 
@@ -17,7 +17,6 @@ cd recipe-book-api`
 source env/bin/activate` 
 
 3.  Install dependencies:
-
 
 `pip install -r requirements.txt` 
 
@@ -130,8 +129,7 @@ To view a list of recipes, send a GET request to `/api/v1/cook-book/recipes/`:
 
 Similarly, create, retrieve and update endpoints are also present.
 
-## Frontend
-
+# Frontend
 The frontend of the application is built using React JS and Material UI. React JS is a popular JavaScript library for building user interfaces, and Material UI is a set of React components that implement Google's Material Design guidelines.
 
 The frontend communicates with the backend using the API endpoints described above. When a user logs in, they can see a list of recipes uploaded by other users, along with the average rating of each recipe. Clicking on a recipe will show more details about that recipe, including the reviews left by other users.
@@ -147,3 +145,15 @@ The frontend is organized into several components, including:
 -   `ReviewForm`: Displays a form where users can leave a review for a recipe.
 
 The frontend is designed to be responsive and work well on both desktop and mobile devices. Material UI provides a set of responsive design components that make it easy to create a mobile-friendly UI.
+](https://github.com/kirantyefun/recipe-hero.git)
+## Running the application
+
+Repo is assumed to already have been cloned.
+- `cd recipe-hero/recipe-frontend`
+- `npm install`
+- `npm start`
+
+This starts your react server.
+Navigate to http://localhost:3000 in your web browser to view the application. 
+Once both the Django server and React server are running, you should be able to use the application in your web browser.
+
